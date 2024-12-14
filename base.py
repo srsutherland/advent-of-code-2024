@@ -4,14 +4,15 @@ import sys
 global logging
 logging = False
 def log(message):
-    if logging:
+    if log.enabled:
         print(message)
+log.enabled = False
 
 class AdventDay:
-    def __init__(self, sample_input:str):
-        self.sample_input = sample_input
-        if not sample_input:
-            print("No sample input provided")
+    def __init__(self, sample_input:str=None):
+        self.sample_input = None
+        self.sample_input2 = None
+        self.set_sample_input(sample_input)
         try:
             self.input = self.load_input()
         except FileNotFoundError:
@@ -26,6 +27,14 @@ class AdventDay:
         os.chdir(new_dir)
         with open('input.txt') as f:
             return f.read()
+    
+    def set_sample_input(self, sample_input:str):
+        self.sample_input = sample_input
+        if self.sample_input2 is None:
+            self.sample_input2 = sample_input
+    
+    def set_sample_input2(self, sample_input:str):
+        self.sample_input2 = sample_input
     
     def run(self, test_part1=True, run_part1=True, test_part2=True, run_part2=True):
         if test_part1:
@@ -42,7 +51,7 @@ class AdventDay:
         print(f"The sample result of part 1 is {test_result}")
     
     def test_part2(self):
-        test_result = self.part2(self.sample_input)
+        test_result = self.part2(self.sample_input2)
         print(f"The sample result of part 2 is {test_result}")
     
     def run_part1(self):
