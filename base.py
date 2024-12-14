@@ -8,8 +8,10 @@ def log(message):
         print(message)
 
 class AdventDay:
-    def __init__(self, sample_input:str=None):
+    def __init__(self, sample_input:str):
         self.sample_input = sample_input
+        if not sample_input:
+            print("No sample input provided")
         try:
             self.input = self.load_input()
         except FileNotFoundError:
@@ -28,11 +30,11 @@ class AdventDay:
     def run(self, test_part1=True, run_part1=True, test_part2=True, run_part2=True):
         if test_part1:
             self.test_part1()
-        if run_part1:
+        if run_part1 and self.input:
             self.run_part1()
         if test_part2:
             self.test_part2()
-        if run_part2:
+        if run_part2 and self.input:
             self.run_part2()
     
     def test_part1(self):
